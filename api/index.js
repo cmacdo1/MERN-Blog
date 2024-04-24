@@ -1,7 +1,25 @@
 import express from 'express';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 
+/* CONFIGURATIONS */
+dotenv.config();
 const app = express();
 
-app.listen(3000, () => {
-  console.log('Server is running on port 3000');
-});
+
+/* MONGOOSE SETUP */
+const PORT = process.env.PORT || 9000;
+const MONGO_URL = process.env.MONGO_URL;
+
+mongoose
+    .connect(MONGO_URL)
+    .then(async () => {
+        app.listen(PORT, () => console.log(`Server Listening on Port: ${PORT}`));
+        console.log('MongoDB Connection Successful')
+    })
+    .catch((error) => console.log(`${error} did not connect`));
+
+/* ROUTES */
+
+
+/* MIDDLEWARE */
